@@ -52,7 +52,7 @@ const useStyles = makeStyles({
 })
 
 
-const Popup = ({ setBudget }) => {
+const Popup = ({ setBudget, setCategoryName }) => {
 
     const [cat, setCat] = useState({});
 
@@ -72,30 +72,32 @@ const Popup = ({ setBudget }) => {
             });
     }, []);
 
-    const saveChanges = () => {
-
-    };
-
-
-    
     const classes = useStyles();
+
 
         return (
             <Paper className={classes.popupStyle} elevation={3}>
                 <h2 className={classes.title} >Edit budget</h2>
                 <BsX className={classes.close} size={50} />
                 <div className={classes.box}>
-                    <img className={classes.img} src={cat.url} alt="no image showing" />
                     
-                    <Button className={classes.btn} onClick={ fetchCat } color="primary" variant="contained">Change cat avatar</Button>
+
+
+                    <form>
+
+                        <img className={classes.img} src={cat.url} alt="no image showing" />   
+
+                        <Button className={classes.btn} onClick={ fetchCat } color="primary" variant="contained">Change cat avatar</Button>
+
                     
-                    {/* <TextField onChange={ (event) => props.onChange(event.target.value) } className={classes.inputField} label="Number"  type="number" id="outlined-basic" label="Amount in €" variant="outlined" />
+                        <TextField onChange={(event) => setBudget(event.target.value)} className={classes.inputField} type="number" id="outlined-basic" label="Amount in €" variant="outlined" />
                     
-                    <TextField onChange={ (event) => props.onChange(event.target.value) } className={classes.inputField} id="outlined-basic" label="Budget name" variant="outlined" /> */}
+                        <TextField onChange={(event) => setCategoryName(event.target.value)} name="name" className={classes.inputField} id="outlined-basic" label="Budget name" variant="outlined" />
                     
-                    <hr className={classes.line} ></hr>
+                        <hr className={classes.line} ></hr>
                     
-                    <Button onClick={() => setBudget("df")} className={classes.btn} color="primary" variant="contained">Safe changes</Button>
+                        <Button /*onClick={() => setBudget("df")}*/  type="submit" className={classes.btn} color="primary" variant="contained">Submit</Button>
+                    </form>
                 </div>
             </Paper>
         )

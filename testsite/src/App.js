@@ -5,10 +5,15 @@ import Popup from "./Popup";
 
 
 function App() {
-  const [amount, setAmount] = useState()
+  const [amount, setAmount] = useState("")
+  const [name, setName] = useState("")
 
   const setBudget = (budget) => {
     setAmount(budget)
+  }
+
+  const setCategoryName = (name) => {
+    setName(name)
   }
 
   return (
@@ -16,7 +21,8 @@ function App() {
       <Menu />
       <Card />
       <h2>Popup Budget {amount}</h2>
-      <Popup setBudget={setBudget} />
+      <h2>Popup Name {name}</h2>
+      <Popup setBudget={setBudget} setCategoryName={setCategoryName} />
     </div>
   );
 }
