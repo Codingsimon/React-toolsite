@@ -6,6 +6,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import { BsX } from "react-icons/bs";
 import Axios from "axios"
 import axios from 'axios';
+import TextField from "@material-ui/core/TextField"
 
 const useStyles = makeStyles({
     popupStyle: {
@@ -13,35 +14,49 @@ const useStyles = makeStyles({
         width: "500px",
         height: "500px",
         margin: "50px auto",
-        display: "flex",
-        "justify-content": "center",
-        "align-items": "center",
+        // display: "flex",
+        // "justify-content": "center",
+        // "align-items": "center",
     },
     close: {
         float: "right",
-        size: "70",
+    },
+    title: {
+        float: "left",
+        margin: "10px",
     },
     img: {
         display: "block",
-        height: "200px",
+        height: "150px",
         margin: "0 auto",
         textAlign: "center",
     },
     box: {
         width: "400px",
         height: "400px",
-        margin: "auto",
-        "background-color": "green",
+        margin: "70px 50px",
+        // "background-color": "green",
+        position: "absolute",
     },
+    btn: {
+        margin: "10px auto",
+        display: "block",
+    },
+    inputField: {
+        margin: "10px 100px",
+        display: "block",
+    },
+    line: {
+        "border-top": "2px dashed #a8a8a8",
+      },
 })
 
 
-
-export default function Popup() {
+const Popup = ({ setBudget }) => {
 
     const [cat, setCat] = useState({});
 
-    const onClick = () => {
+    const fetchCat = () => {
         axios.get("https://thatcopy.pw/catapi/rest/")
             .then(response => {
                 setCat(response.data)
@@ -50,21 +65,40 @@ export default function Popup() {
     };
 
     useEffect(() => {
-
+        axios.get("https://thatcopy.pw/catapi/rest/")
+            .then(response => {
+                setCat(response.data)
+                 console.log(cat)
+            });
     }, []);
+
+    const saveChanges = () => {
+
+    };
+
 
     
     const classes = useStyles();
 
         return (
             <Paper className={classes.popupStyle} elevation={3}>
-                {/* <BsX className={classes.close} size={70}/> */}
+                <h2 className={classes.title} >Edit budget</h2>
+                <BsX className={classes.close} size={50} />
                 <div className={classes.box}>
                     <img className={classes.img} src={cat.url} alt="no image showing" />
-                    {/* <h1>Kontotyp</h1>
-                    <h2>Budget 400€</h2> */}
-                    <Button onClick={ onClick } color="primary" variant="contained">Change cat</Button>
+                    
+                    <Button className={classes.btn} onClick={ fetchCat } color="primary" variant="contained">Change cat avatar</Button>
+                    
+                    {/* <TextField onChange={ (event) => props.onChange(event.target.value) } className={classes.inputField} label="Number"  type="number" id="outlined-basic" label="Amount in €" variant="outlined" />
+                    
+                    <TextField onChange={ (event) => props.onChange(event.target.value) } className={classes.inputField} id="outlined-basic" label="Budget name" variant="outlined" /> */}
+                    
+                    <hr className={classes.line} ></hr>
+                    
+                    <Button onClick={() => setBudget("df")} className={classes.btn} color="primary" variant="contained">Safe changes</Button>
                 </div>
             </Paper>
         )
 }
+
+export default Popup;
