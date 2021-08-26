@@ -5,30 +5,49 @@ import TextField from "@material-ui/core/TextField"
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles({
-    formStyle: {
-        position: "absolute",
-        bottom: "0px",
-        margin: "0 15px",
-    },
     buttonStyle: {
         position: "absolute",
         bottom: "0px",
         margin: "0 200px",
+    },
+    card: {
+        width: "500px",
+        height: "150px",
+        backgroundColor: "green",
+        margin: "50px auto",
+        display: "flex",
+    },
+    column: {
+        backgroundColor: "yellow",
+        width: "33%",
+        "border-style": "groove",
+        borderWidth: 2,
+    },
+    avatar: {
+        "max-width": "100%",
+        "max-height": "100%",
+    },
+    btn: {
+        margin: "0 auto",
+        display: "block",
     }
 })
 
-export default function Card() {
+export default function Card(props) {
     const classes = useStyles();
     return (
             <>
-            <Paper className="card" elevation={3} >
-                <h1>Budget 400€</h1>
-                <h2>Kontotyp</h2>
-                {/* <form noValidate autoComplete="off">
-                    <TextField className={classes.formStyle} id="outlined-basic" label="Outlined" variant="outlined" />
-                    <Button className={classes.buttonStyle} variant="contained" color="primary">Submit</Button>
-                </form> */}
+            <Paper className={classes.card} elevation={3} >
+                {/* <h1>Budget </h1> */}
+
+                <div className={classes.column} ><p>Name</p><p>{props.name}</p></div>
+                
+                <div className={classes.column} ><p>€</p><p>{props.amount}</p></div>
+                
+                <div className={classes.column} ><img className={classes.avatar} src={props.cat.url} alt="cat image" /></div>
+                
             </Paper>
+           
             </>
             )
   }

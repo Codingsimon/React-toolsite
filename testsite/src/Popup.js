@@ -52,9 +52,18 @@ const useStyles = makeStyles({
 })
 
 
-const Popup = ({ setBudget, setCategoryName }) => {
+const Popup = ({ setImage, setBudget, setCategoryName, togglePopup }) => {
 
     const [cat, setCat] = useState({});
+    const [amount, setAmount] = useState({});
+    const [name, setName] = useState({});
+
+    const save = () => {
+        console.log("sdfsdafsaf")
+        setImage(cat)
+        setBudget(amount)
+        setCategoryName(name)
+    };
 
     const fetchCat = () => {
         axios.get("https://thatcopy.pw/catapi/rest/")
@@ -78,7 +87,7 @@ const Popup = ({ setBudget, setCategoryName }) => {
         return (
             <Paper className={classes.popupStyle} elevation={3}>
                 <h2 className={classes.title} >Edit budget</h2>
-                <BsX className={classes.close} size={50} />
+                <BsX onClick={togglePopup} className={classes.close} size={50} />
                 <div className={classes.box}>
                     
 
@@ -90,13 +99,13 @@ const Popup = ({ setBudget, setCategoryName }) => {
                         <Button className={classes.btn} onClick={ fetchCat } color="primary" variant="contained">Change cat avatar</Button>
 
                     
-                        <TextField onChange={(event) => setBudget(event.target.value)} className={classes.inputField} type="number" id="outlined-basic" label="Amount in €" variant="outlined" />
+                        <TextField onChange={(event) => setAmount(event.target.value)} className={classes.inputField} type="number" id="outlined-basic" label="Amount in €" variant="outlined" />
                     
-                        <TextField onChange={(event) => setCategoryName(event.target.value)} name="name" className={classes.inputField} id="outlined-basic" label="Budget name" variant="outlined" />
+                        <TextField onChange={(event) => setName(event.target.value)} name="name" className={classes.inputField} id="outlined-basic" label="Budget name" variant="outlined" />
                     
                         <hr className={classes.line} ></hr>
                     
-                        <Button /*onClick={() => setBudget("df")}*/  type="submit" className={classes.btn} color="primary" variant="contained">Submit</Button>
+                        <Button onClick={() => {save(); togglePopup() }} className={classes.btn} color="primary" variant="contained">Submit</Button>
                     </form>
                 </div>
             </Paper>
